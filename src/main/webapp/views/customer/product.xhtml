@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="/views/template/template.xhtml">
+            <ui:define name="content">
+                <div class="row">
+                    <div class="span12">
+                        <ul class="breadcrumb">
+                            <li><a href="${facesContext.externalContext.requestContextPath}">Home</a> <span class="divider">/</span></li>
+                            <li class="active">Products</li>
+                        </ul>
+                        <h3> Products <small class="pull-right"> #{productSearchController.noOfAvailableProducts} products are available </small></h3>	
+
+                        <hr class="soft"/>
+                        <br class="clr"/>
+                        <div class="tab-content">
+                            <div class="tab-pane  active" id="blockView">
+                                <ul class="thumbnails">
+                                    <ui:repeat value="#{productSearchController.products}" var="product">
+                                        <li class="span3">
+                                        <div class="thumbnail">
+                                            <a href="#"><img src="#{product.imageURL}" style="width: 200px; height: 150px;" alt="${product.name}"/></a>
+                                            <div class="caption">
+                                                <h5>${product.name}</h5>
+                                                <h4><span class="pull-right">$#{product.price}</span></h4><h:form><h:commandLink action="#{productSearchController.viewProductDetail(product)}" class="btn btn-large" value="VIEW" /> </h:form>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    </ui:repeat>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+
+</html>
+

@@ -1,0 +1,102 @@
+<?xml  version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+                http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <context:annotation-config />
+    <context:component-scan base-package="com.saviour.poweryoga" />
+    <tx:annotation-driven />
+
+    <bean 
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>WEB-INF/jdbc.properties</value>
+        </property>
+    </bean>
+ 
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassName}" />
+        <property name="url" value="${jdbc.databaseurl}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+    </bean>
+        
+        
+    <!-- Hibernate session factory -->
+    <bean id="sessionFactory" 
+          class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean ">
+        <property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+ 
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${jdbc.dialect}</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+        
+        <property name="annotatedClasses">
+            <list>
+                <value>com.saviour.poweryoga.model.Users</value>
+                <value>com.saviour.poweryoga.model.Customer</value>
+                <value>com.saviour.poweryoga.model.Role</value>
+                <value>com.saviour.poweryoga.model.Admin</value>
+                <value>com.saviour.poweryoga.model.Course</value>
+                <value>com.saviour.poweryoga.model.CreditCard</value>
+                <value>com.saviour.poweryoga.model.Faculty</value>
+                <value>com.saviour.poweryoga.model.Product</value>
+                <value>com.saviour.poweryoga.model.PurchaseOrder</value>
+                <value>com.saviour.poweryoga.model.Section</value>
+                <value>com.saviour.poweryoga.model.Semester</value>
+                <value>com.saviour.poweryoga.model.ShoppingCart</value>
+                <value>com.saviour.poweryoga.model.ShoppingCartItem</value>
+                <value>com.saviour.poweryoga.model.Transcript</value>
+                <value>com.saviour.poweryoga.model.Address</value>
+                <value>com.saviour.poweryoga.model.Waiver</value>
+                <value>com.saviour.poweryoga.model.Enrollment</value>
+                <value>com.saviour.poweryoga.model.Withdrawal</value>
+            </list>
+        </property>
+
+    </bean>
+    
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+      
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com"/>
+        <property name="port" value="587"/>
+        <property name="username" value="saviouryoga"/>
+        <property name="password" value="poweryoga"/>
+        <property name="javaMailProperties">
+            <props>
+                <!-- Use SMTP transport protocol -->
+                <prop key="mail.transport.protocol">smtp</prop>
+                <!-- Use SMTP-AUTH to authenticate to SMTP server -->
+                <prop key="mail.smtp.auth">true</prop>
+                <!-- Use TLS to encrypt communication with SMTP server -->
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.debug">true</prop>  
+            </props>
+        </property>
+    </bean>
+
+</beans>

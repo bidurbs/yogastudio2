@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+    </h:head>
+    <h:body>
+
+        <h:panelGrid rendered="#{customerValidationController.myStatus == 'validation_success'}">
+            Verification complete. You can login from <a href="/poweryoga/views/userLogin.xhtml?faces-redirect=true">here</a>
+        </h:panelGrid>
+        <h:panelGrid rendered="#{customerValidationController.myStatus == 'validation_done'}">
+            Sorry, this link already used for verification
+        </h:panelGrid>
+        <h:panelGrid rendered="#{customerValidationController.myStatus == 'invalid_link'}">
+            Link is invalid
+        </h:panelGrid>
+
+    </h:body>
+</html>

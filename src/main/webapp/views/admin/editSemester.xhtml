@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <f:event listener="#{userController.isAdminUser}" type="preRenderView" />
+    <h:head>
+    </h:head>
+    <body>
+        <ui:composition template="../template/templateAdmin.xhtml">
+            <ui:define name="successFailure">
+            </ui:define>
+            <ui:define name="content">
+                <h3>Edit Semester</h3>	
+                <hr class="soft"/>
+                <div class="well">
+
+                    <h:form class="form-horizontal">
+                        <div class="control-group">
+                            <label class="control-label" for="semesterName">Semester Name <sup>*</sup></label>
+                            <div class="controls">
+                                <h:inputText id="semesterName" value="#{semesterController.semester.semesterName}" validatorMessage="Required">
+                                    <f:validateRequired/>
+                                </h:inputText>
+                                <h:message for="semesterName" class="error"/>
+                            </div>
+                            
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="popupCals">Start Date <sup>*</sup></label>
+                            <div class="controls">
+                                <p:calendar value="#{semesterController.semester.startDate}" id="popupCals" validatorMessage="Required">
+                                    <f:validateRequired/>
+                                </p:calendar>
+                                <h:message for="popupCals" class="error"/>
+                            </div>
+                            
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="popupCale">End Date <sup>*</sup></label>
+                            <div class="controls">
+                                <p:calendar value="#{semesterController.semester.endDate}" id="popupCale" validatorMessage="Required">
+                                    <f:validateRequired/>
+                                </p:calendar>
+                                <h:message for="popupCale" class="error"/>
+                            </div>
+                            
+                        </div>
+
+                        <div class="control-group">
+                            <div class="controls">
+                                <h:commandButton class="btn btn-large" value="Update" action="#{semesterController.updateSemester()}"/>
+                            </div>
+                        </div>
+                    </h:form>
+
+                </div>
+
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

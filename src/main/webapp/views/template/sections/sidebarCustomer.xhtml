@@ -1,0 +1,20 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:body>
+        <h:form>
+            <div id="sidebar" class="span3">
+                <br class="clr"/>
+                <ul class="nav nav-list bs-docs-sidenav" style="display: block;">
+                    <li><h:commandLink value="View Transcript/Course History" action="#{enrollmentController.displayAllSectionHistory()}"/></li>
+                    <li><a href="${facesContext.externalContext.requestContextPath}/views/customer/customerApplyWaiver.xhtml?faces-redirect=true">Apply for Waiver Request</a></li>
+                    <li><a href="${facesContext.externalContext.requestContextPath}/views/faculty/facultyViewSection.xhtml?faces-redirect=true">Shop an item</a></li>
+                    <li><h:commandLink value="Withdrawal Form" action="#{withdrawalController.displayEnrollment()}"/></li>
+                    <li><h:commandLink value="Update Profile" action="#{customerController.findCustomerById()}"/></li>
+                    <li><h:commandLink value="View Orders" action="#{purchaseOrderViewController.viewMyOrders()}"/></li>
+                    <li><h:commandLink value="Change Password" action="/views/customer/changePassword.xhtml?faces-redirect=true"/></li>
+                </ul>
+            </div>
+        </h:form>
+    </h:body>
+</html>
+

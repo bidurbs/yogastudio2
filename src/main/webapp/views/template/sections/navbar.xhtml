@@ -1,0 +1,71 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+
+                    <div class="nav-collapse">
+                        <h:form> 
+                            <ul class="nav">
+                                <li class="active"><a href="${facesContext.externalContext.requestContextPath}">Home</a></li>
+                                <li class=""><h:commandLink value="Courses" action="#{courseController.displayCourses()}" /></li>
+                                <li class=""><h:commandLink value="Products" action="#{productSearchController.displayProducts()}" /></li>
+                            </ul>
+                        </h:form>
+
+                        <c:choose>
+                            <c:when test="#{userController.isLoggedin==false}">
+                                <h:form class="navbar-search pull-left" style="width: 400px !important; margin-left: 120px">                            
+                                    <h:inputText value="#{productSearchController.productName}" style="font-style: italic" class="search-query span5">
+                                        <f:passThroughAttribute name="placeholder"
+                                                                value="Search Products..."/>
+                                    </h:inputText>
+                                    <h:commandButton class="btn btn-small" value="Search" action="#{productSearchController.searchProduct()}" style="visibility: hidden; width: 0" />
+                                </h:form>
+                            </c:when>
+                            <c:when test="#{userController.isCustomer}">
+                                <h:form class="navbar-search pull-left" style="width: 400px !important; margin-left: 120px">                            
+                                    <h:inputText value="#{productSearchController.productName}" style="font-style: italic" class="search-query span5">
+                                        <f:passThroughAttribute name="placeholder"
+                                                                value="Search Products..."/>
+                                    </h:inputText>
+                                    <h:commandButton class="btn btn-small" value="Search" action="#{productSearchController.searchProduct()}" style="visibility: hidden; width: 0" />
+                                </h:form>
+                            </c:when>
+                        </c:choose>
+                        <h:form> 
+                            <ul class="nav pull-right">
+                                <c:choose>
+                                    <c:when test="#{userController.isLoggedin}">
+                                        <c:if test="#{userController.isCustomer}">
+                                            <li class=""><a href="${facesContext.externalContext.requestContextPath}/views/customer/myProfile.xhtml">Welcome #{userController.activeSession.getAttribute("loggedUserFname")}</a></li>
+                                        </c:if>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li><a href="${facesContext.externalContext.requestContextPath}/views/customer/customerRegistration.xhtml">Signup</a></li>
+                                    </c:otherwise>
+                                </c:choose>
+
+                                <c:choose>
+                                    <c:when test="#{userController.isLoggedin}">
+                                        <li><h:commandLink value="Logout" action="#{userController.logoutUser()}"></h:commandLink></li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li><a href="${facesContext.externalContext.requestContextPath}/views/userLogin.xhtml">Login</a></li>
+                                    </c:otherwise>
+                                </c:choose>
+
+                            </ul>
+                        </h:form>
+                    </div><!-- /.nav-collapse -->
+                </div>
+            </div><!-- /navbar-inner -->
+        </div>
+
+    </h:body>
+</html>

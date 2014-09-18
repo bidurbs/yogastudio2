@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <f:event listener="#{userController.isAdminUser}" type="preRenderView" />
+    
+    <h:head>
+
+    </h:head>
+    <body>
+        <ui:composition template="../template/templateAdmin.xhtml">
+            <ui:define name="successFailure">
+                <c:if test="#{semesterController.successMsg !=null}">
+                    <div class="alert fade in">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>#{semesterController.successMsg}</strong>
+                    </div>
+                </c:if>
+                <c:if test="#{semesterController.errorMsg !=null}">
+                    <div class="alert alert-block alert-error fade in">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>#{semesterController.errorMsg}</strong>
+                    </div>
+                </c:if>
+            </ui:define>
+            <ui:define name="content">
+                <h3>Semester List</h3>	
+                <hr class="soft"/>
+                <h:form>
+                    <h:commandLink action="#{semesterController.addSemester()}" value="Add Semester" /> 
+                </h:form>
+                <!--<a href="addSemester.xhtml">Add Semester</a>-->
+                <div class="well">
+                    <h:dataTable value="#{semesterController.listOfSemester}" var="item" class="table table-bordered">
+                        <h:column>
+                            <f:facet name="header">Semester Name</f:facet>
+                            #{item.semesterName}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Start Date</f:facet>
+                                #{item.startDate}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">End Date</f:facet>
+                                #{item.endDate}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Action</f:facet>
+                            <h:form>
+                                <h:commandLink action="#{semesterController.editSemester(item.id)}" value="Edit" /> |
+                                <h:commandLink action="#{semesterController.deleteSemester(item.id)}" value="Delete"/>
+                            </h:form>
+                        </h:column>
+                    </h:dataTable>
+
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

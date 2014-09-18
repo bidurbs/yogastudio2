@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <f:event listener="#{userController.isCustomerUser}" type="preRenderView" />
+
+    <h:head>
+
+    </h:head>
+    <body>
+        <ui:composition template="../template/templateCustomer.xhtml">
+
+            <ui:define name="content">
+                <div class="row">
+                    <div class="span12">
+                        <h3>Card Information</h3>	
+                        <hr class="soft"/>
+                        <div class="well">
+                            <h:form class="form-horizontal">
+                                <div class="control-group">
+                                    <label class="control-label" for="holderName">Cardholder Name </label>
+                                    <div class="controls">
+                                        <h:inputText id="holderName" value="#{purchaseOrderController.creditCard.cardholderName}" maxlength="50"/>
+                                    </div>
+                                    <h:message for="holderName" class="error"/>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="cardNumber">Card Number </label>
+                                    <div class="controls">
+                                        <h:inputText id="cardNumber" value="#{purchaseOrderController.creditCard.cardNumber}" maxlength="16" label="Credit Card" validatorMessage="Length of the Credit Card must be 16 digits." converterMessage="Only positive integer values are allowed for Credit Card number.">
+                                            <f:convertNumber integerOnly="true" pattern="################"/>
+                                            <f:validateLength maximum="16" minimum="16"/>
+                                            <f:validateRequired/>
+                                        </h:inputText>
+                                    </div>
+                                    <h:message for="cardNumber" class="error"/>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="expiryDate">Expiry Date </label>
+                                    <div class="controls">
+                                        <h:inputText id="expiryDate" value="#{purchaseOrderController.creditCard.expiryDate}" maxlength="5" label="Expiry Date" 
+                                                     validatorMessage="ExpiredDate should be in MM/yy format">
+                                            <f:validateRegex pattern="(0[1-9]|1[0-2])/[0-9]{2}" />
+                                        </h:inputText>
+                                    </div>
+                                    <h:message for="expiryDate" class="error"/>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="securityCode">Security Code </label>
+                                    <div class="controls">
+                                        <h:inputSecret id="securityCode" value="#{purchaseOrderController.creditCard.securityCode}" maxlength="3" label="Security Code" validatorMessage="Length of the Security code must be 3">
+                                            <f:validateLength maximum="3" minimum="3"/>
+                                        </h:inputSecret>
+                                    </div>
+                                    <h:message for="securityCode" class="error"/>
+                                </div>
+
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <h:commandButton class="btn btn-small" value="Save and Confirm Order" action="#{purchaseOrderController.saveCreditCard()}"/>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

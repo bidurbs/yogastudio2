@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="/views/template/templateCustomer.xhtml">
+            <ui:define name="content">
+                <div class="row">
+                    <div class="span9">
+                        <ul class="breadcrumb">
+                            <li><a href="${facesContext.externalContext.requestContextPath}">Home</a> <span class="divider">/</span></li>
+                            <li class="active">Profile</li>
+                        </ul>
+                        <h3> My Profile </h3>	
+
+                        <hr class="soft"/>
+                        <br class="clr"/>
+                        <p>
+                            welcome to my profile page
+                        </p>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <f:event listener="#{userController.isAdminUser}" type="preRenderView" />
+
+    <h:head>
+
+    </h:head>
+    <body>
+        <ui:composition template="../template/templateAdmin.xhtml">
+            <ui:define name="successFailure">
+                <c:if test="#{courseController.successMsg !=null}">
+                    <div class="alert fade in">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>#{courseController.successMsg}</strong>
+                    </div>
+                </c:if>
+                <c:if test="#{courseController.errorMsg !=null}">
+                    <div class="alert alert-block alert-error fade in">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>#{courseController.errorMsg}</strong>
+                    </div>
+                </c:if>
+            </ui:define>
+            <ui:define name="content">
+                <h3>Course List</h3>	
+                <hr class="soft"/>
+                <h:form>
+                    <h:commandLink action="#{courseController.addCourse()}" value="Add Course" /> 
+                </h:form>
+                <!--<a href="addCourse.xhtml">Add Course</a>-->
+                <div class="well">
+                    <h:dataTable value="#{courseController.listOfCourses}" var="item" class="table table-bordered">
+                        <h:column>
+                            <f:facet name="header">Course Name</f:facet>
+                                #{item.courseName}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Course Code</f:facet>
+                                #{item.courseCode}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Price</f:facet>
+                                #{item.courseFee}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Description</f:facet>
+                                #{item.description}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Action</f:facet>
+                            <h:form>
+                                <h:commandLink action="#{courseController.editCourse(item.id)}" value="Edit" /> |
+                                <h:commandLink action="#{sectionController.viewSection(item.id)}" value="Section List" /> | <h:commandLink action="#{courseController.deleteCourse(item.id)}" value="Delete"/>
+                            </h:form>
+                        </h:column>
+                    </h:dataTable>
+
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:event listener="#{userController.isFacultyUser}" type="preRenderView" />
+
+    <h:head>
+
+    </h:head>
+    <body>
+        <ui:composition template="../template/templateFaculty.xhtml">
+
+            <ui:define name="content">
+                <h3>My Sections</h3>	
+                <hr class="soft"/>
+                <div class="well">
+                    <h:form id="advList">
+                        <h:outputText id="adviList"/>
+                        <h:message for="adviList" id="NoAdviList"  style="color:red"/>
+                    </h:form>
+                    <h:dataTable value="#{facultyController.mySections}" var="sec" class="table table-bordered">
+                        <h:column>
+                            <f:facet name="header">Section Name</f:facet>
+                                #{sec.sectionName}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Room No.</f:facet>
+                                #{sec.roomNumber}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Max. No Of Students</f:facet>
+                                #{sec.maxNoStudent}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Semester</f:facet>
+                                #{sec.semester.semesterName}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Semester Start</f:facet>
+                                #{sec.semester.startDate}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Semester End</f:facet>
+                                #{sec.semester.endDate}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Action</f:facet>
+                            <h:form>
+                                <h:commandLink  value="Send email to students" />
+                            </h:form>
+                        </h:column>
+                    </h:dataTable>
+
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:event listener="#{userController.isCustomerUser}" type="preRenderView" />
+
+    <h:head>
+
+    </h:head>
+    <body>
+        <ui:composition template="../template/templateCustomer.xhtml"> 
+            <ui:define name="successFailure">
+                <h:panelGrid rendered="#{withdrawalController.message}">
+                    <div class="alert fade in">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>#{withdrawalController.message}</strong>
+                    </div>
+                </h:panelGrid>
+                <h:panelGrid rendered="#{withdrawalController.message != null}">
+                    <div class="alert alert-block alert-error fade in">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>#{withdrawalController.message}</strong>
+                    </div>
+                </h:panelGrid>
+            </ui:define>
+            <ui:define name="content">               
+                <div class="well"> 
+                    <h4>Yoga Studio Course Withdrawal</h4>
+                    <h:form>
+                        <h:panelGrid columns="3">
+                            Date:
+                            <h:inputText id="requestDate" value="#{withdrawalController.withdrawal.withdrawalDate}">
+                                <f:convertDateTime type="date"/>
+                            </h:inputText>
+                            <h:message for="requestDate"/>
+                            Course:
+                            <h:selectOneMenu id="enrollments" value="#{withdrawalController.enrollmentId}" >                          
+                                <f:selectItems value="#{withdrawalController.enrollments}" var="enrol" itemValue="#{enrol.id}" itemLabel="#{enrol.section.course.courseName}"/>                          
+                            </h:selectOneMenu>
+                            <h:message for="enrollments"/>
+                            Reason:
+                            <h:inputTextarea id="reason" cols="30" value="#{withdrawalController.withdrawal.reason}"/>
+                            <h:message for="reason"/>              
+
+                            &nbsp;
+                            <h:commandButton value="Withdraw course" action="#{withdrawalController.withdrawFromSection()}"/>
+                            
+                        </h:panelGrid>
+
+                        <!--  Data display -->
+                        <h:dataTable value="#{withdrawalController.withdrawals}" var="withdraw" class="table table-bordered">
+                            <h:column>
+                                <f:facet name="header">Date </f:facet>
+                                    #{withdraw.withdrawalDate}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Section Name </f:facet>
+                                    #{withdraw.enrollment.section.sectionName}                         
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Reason </f:facet>
+                                    #{withdraw.reason}        
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Withdrawal Status </f:facet>
+                                    #{withdraw.withdrawalStatus}
+
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">delete</f:facet>
+                                <h:commandButton value="Delete" action="#{withdrawalController.deleteRequest()}">
+                                    <f:setPropertyActionListener target="#{withdrawalController.withdrawal}" value="#{withdraw}" />
+                                </h:commandButton>        
+                            </h:column>
+                        </h:dataTable>
+
+                    </h:form>  
+
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
+
+
+

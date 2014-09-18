@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:event listener="#{userController.isAdminUser}" type="preRenderView" />
+
+    <h:head>
+
+    </h:head>
+    <body>
+        <ui:composition template="../template/templateAdmin.xhtml">
+            <ui:define name="successFailure">
+
+            </ui:define>
+            <ui:define name="content">
+                <h3>Edit Course</h3>	
+                <hr class="soft"/>
+                <div class="well">
+                    <h:form class="form-horizontal">
+
+                        <div class="control-group">
+                            <label class="control-label" for="courseCode">Course Code <sup>*</sup></label>
+                            <div class="controls">
+                                <h:inputText id="courseCode" value="#{courseController.course.courseCode}" validatorMessage="Required">
+                                    <f:validateRequired/>
+                                </h:inputText>
+                                <h:message for="courseCode" class="error"/>
+                            </div>
+                            
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="courseName">Course Name <sup>*</sup></label>
+                            <div class="controls">
+                                <h:inputText id="courseName" value="#{courseController.course.courseName}" validatorMessage="Required">
+                                    <f:validateRequired/>
+                                </h:inputText>
+                                <h:message for="courseName" class="error"/>
+                            </div>
+                            
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="description">Description <sup>*</sup></label>
+                            <div class="controls">
+                                <h:inputTextarea id="imageURL" value="#{courseController.course.description}" validatorMessage="Required">
+                                    <f:validateRequired/>
+                                </h:inputTextarea>
+                                <h:message for="description" class="error"/>
+                            </div>
+                            
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="courseFee">Course Fee <sup>*</sup></label>
+                            <div class="controls">
+                                <h:inputText id="price" value="#{courseController.course.courseFee}" validatorMessage="Required">
+                                    <f:validateRequired/>
+                                </h:inputText>
+                                <h:message for="courseFee" class="error"/>
+                            </div>
+                            
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="course">Prerequisite Course</label>
+                            <div class="controls">
+                                <h:selectOneMenu id="preCourse" value="#{courseController.selectedPrerequisiteId}">
+                                    <f:selectItem itemValue="#{item.id}" itemLabel="None" />
+                                    <f:selectItems value="#{courseController.listOfCourses}" var="item"
+                                                   itemLabel="#{item.courseName}" 
+                                                   itemValue="#{item.id}"/>
+                                </h:selectOneMenu>
+                                <h:message for="preCourse" id="preError" class="error"/>
+                            </div>
+                           
+                        </div>  
+
+                        <div class="control-group">
+                            <div class="controls">
+                                <h:commandButton class="btn btn-large" value="Update" 
+                                                 action="#{courseController.updateCourse()}"/>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

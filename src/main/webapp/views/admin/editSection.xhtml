@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:event listener="#{userController.isAdminUser}" type="preRenderView" />
+
+    <h:head>
+
+    </h:head>
+    <body>
+        <ui:composition template="../template/templateAdmin.xhtml">
+            <ui:define name="successFailure">
+
+            </ui:define>
+            <ui:define name="content">
+                <h3>Edit Section</h3>	
+                <hr class="soft"/>
+                <div class="well">
+                    <h:form class="form-horizontal">
+
+                        <div class="control-group">
+                            <label class="control-label" for="sectionName">Section Name <sup>*</sup></label>
+                            <div class="controls">
+                                <h:inputText id="sectionName" value="#{sectionController.section.sectionName}" validatorMessage="Required">
+                                    <f:validateRequired/>
+                                </h:inputText>
+                                <h:message for="sectionName" class="error"/>
+                            </div>
+                            
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="maxNoStudent">Max Student Limit <sup>*</sup></label>
+                            <div class="controls">
+                                <h:inputText id="maxNoStudent" value="#{sectionController.section.maxNoStudent}" validatorMessage="Required">
+                                    <f:validateRequired/>
+                                </h:inputText>
+                                <h:message for="maxNoStudent" class="error"/>
+                            </div>
+                            
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="roomNumber">Room Number <sup>*</sup></label>
+                            <div class="controls">
+                                <h:inputText id="roomNumber" value="#{sectionController.section.roomNumber}" validatorMessage="Required">
+                                    <f:validateRequired/>
+                                </h:inputText>
+                                <h:message for="roomNumber" class="error"/>
+                            </div>
+                            
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="course">Course</label>
+                            <div class="controls">
+                                <h:selectOneMenu value="#{sectionController.selectedCourse}">
+                                    <f:selectItem itemLabel="Choose Course" itemValue=""/>
+                                    <f:selectItems value="#{sectionController.listOfCourse}" var="item"
+                                                   itemLabel="#{item.courseName}" 
+                                                   itemValue="#{item.courseName}" />
+                                </h:selectOneMenu>
+                                <h:message for="course" class="error"/>
+                            </div>
+                            
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="semester">Semester</label>
+                            <div class="controls">
+                                <h:selectOneMenu value="#{sectionController.selectedSemester}">
+                                    <f:selectItem itemLabel="Choose Semester" itemValue=""/>
+                                    <f:selectItems value="#{sectionController.listOfSemester}" var="item"
+                                                   itemLabel="#{item.semesterName}" 
+                                                   itemValue="#{item.id}" />
+                                </h:selectOneMenu>
+                                <h:message for="semester" class="error"/>
+                            </div>
+                            
+                        </div>
+                        
+                        
+                        <div class="control-group">
+                            <div class="controls">
+                                <h:commandButton class="btn btn-large" 
+                                                 value="Update" 
+                                                 action="#{sectionController.updateSection()}"/>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

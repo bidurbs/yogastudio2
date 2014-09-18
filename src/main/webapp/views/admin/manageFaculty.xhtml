@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <f:event listener="#{userController.isAdminUser}" type="preRenderView" />
+
+    <h:head>
+
+    </h:head>
+    <body>
+        <ui:composition template ="../template/templateAdmin.xhtml">
+            <ui:define name ="successFailure">
+                <c:if test="#{facultyController.successMsg !=null}">
+                    <div class="alert fade in">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>#{facultyController.successMsg}</strong>
+                    </div>
+                </c:if>
+                <c:if test="#{facultyController.errorMsg !=null}">
+                    <div class="alert alert-block alert-error fade in">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>#{facultyController.errorMsg}</strong>
+                    </div>
+                </c:if>
+            </ui:define>
+
+            <ui:define name="content">
+                <h3>Faculty List </h3>
+                <hr class ="soft"/>
+                <h:form>
+                    <h:commandLink action="#{facultyController.addFaculty()}" value="Add Faculty" /> 
+                </h:form>
+                <!--<a href="addFaculty.xhtml">Add Faculty</a>-->
+                <div class="well">
+                    <h:dataTable value="#{facultyController.listOfActiveFaculty}" var="item" class="table table-bordered">
+                        <h:column>
+                            <f:facet name="header">First Name</f:facet>
+                                #{item.firstName}    
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Last Name</f:facet>
+                                #{item.lastName}    
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Email</f:facet>
+                                #{item.email}  
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Street</f:facet>
+                                #{item.address.street}  
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">City</f:facet>
+                                #{item.address.city} 
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">State</f:facet>
+                                #{item.address.state}   
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Action</f:facet>
+                            <h:form>
+                                <h:commandLink action="#{facultyController.editFaculty(item.userId)}" value="Edit" /> | 
+                                <h:commandLink action="#{facultyController.deleteFaculty(item.userId)}" value="Delete"/>
+                            </h:form>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+            </ui:define>
+        </ui:composition>          
+
+    </body>
+</html>
+

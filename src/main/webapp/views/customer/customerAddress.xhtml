@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <f:event listener="#{userController.isCustomerUser}" type="preRenderView" />
+
+    <h:head>
+
+        <script>
+
+            function copyBillingAddress() {
+                //alert(document.getElementById("chkAddress").checked);
+                if (document.getElementById("chkAddress").checked === true) {
+                    //alert("OK");
+                    document.getElementById("frmAddress:streetId").value = document.getElementById("frmAddress:street").value;
+                    document.getElementById("frmAddress:cityId").value = document.getElementById("frmAddress:city").value;
+                    document.getElementById("frmAddress:stateId").value = document.getElementById("frmAddress:state").value;
+                    document.getElementById("frmAddress:zipId").value = document.getElementById("frmAddress:zip").value;
+                    document.getElementById("frmAddress:countryId").value = document.getElementById("frmAddress:country").value;
+                } else {
+                    document.getElementById("frmAddress:streetId").value = "";
+                    document.getElementById("frmAddress:cityId").value = "";
+                    document.getElementById("frmAddress:stateId").value = "";
+                    document.getElementById("frmAddress:zipId").value = "";
+                    document.getElementById("frmAddress:countryId").value = "United States";
+                    //alert("NOT OK");
+                }
+            }
+
+        </script>
+
+
+    </h:head>
+    <h:body>
+        <ui:composition template="../template/templateCustomer.xhtml">
+
+            <ui:define name="content">
+                <div class="row">
+                    <div class="span12">
+                        <h3>Billing and Shipping Information</h3>	
+                        <hr class="soft"/>
+                        <div class="well">
+                            <h:form class="form-horizontal" id="frmAddress">
+                                <div class="control-group" style="padding-left: 80px;">
+                                    <h4>Billing Address</h4>   
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="street">Street </label>
+                                    <div class="controls">
+                                        <h:inputText id="street" value="#{purchaseOrderController.billingAddress.street}" maxlength="50"/>
+                                    </div>
+                                    <h:message for="street"/>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="city">City </label>
+                                    <div class="controls">
+                                        <h:inputText id="city" value="#{purchaseOrderController.billingAddress.city}" maxlength="50"/>
+                                    </div>
+                                    <h:message for="city"/>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="state">State </label>
+                                    <div class="controls">
+                                        <h:inputText id="state" value="#{purchaseOrderController.billingAddress.state}" maxlength="20"/>
+                                    </div>
+                                    <h:message for="state"/>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="zip">Zip </label>
+                                    <div class="controls">
+                                        <h:inputText id="zip" value="#{purchaseOrderController.billingAddress.zip}" maxlength="5"/>
+                                    </div>
+                                    <h:message for="zip"/>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="country">Country </label>
+                                    <div class="controls">
+                                        <h:selectOneMenu id="country" value="#{purchaseOrderController.billingAddress.country}">
+                                            <f:selectItem itemLabel="United States" itemValue="United States"/>
+                                            <f:selectItem itemLabel="Canada" itemValue="Canada"/>
+                                            <f:selectItem itemLabel="Greenland" itemValue="Greenland"/>
+                                            <f:selectItem itemLabel="Mexico" itemValue="Mexico"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                    <h:message for="country"/>
+                                </div>
+                                <div class="control-group" style="padding-left: 80px;">
+                                    <h4>Shipping Address</h4>
+                                    <input type="checkbox" id="chkAddress" name="chkAddress" onclick="copyBillingAddress()">Same as Billing address</input><br></br>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="streetId">Street </label>
+                                    <div class="controls">
+                                        <h:inputText id="streetId" value="#{purchaseOrderController.shippingAddress.street}" maxlength="50"/>
+                                    </div>
+                                    <h:message for="streetId"/>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="cityId">City </label>
+                                    <div class="controls">
+                                        <h:inputText id="cityId" value="#{purchaseOrderController.shippingAddress.city}" maxlength="50"/>
+                                    </div>
+                                    <h:message for="cityId"/>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="stateId">State </label>
+                                    <div class="controls">
+                                        <h:inputText id="stateId" value="#{purchaseOrderController.shippingAddress.state}" maxlength="50"/>
+                                    </div>
+                                    <h:message for="stateId"/>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="zipId">Zip </label>
+                                    <div class="controls">
+                                        <h:inputText id="zipId" value="#{purchaseOrderController.shippingAddress.zip}" maxlength="5"/>
+                                    </div>
+                                    <h:message for="zipId"/>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="countryId">Country </label>
+                                    <div class="controls">
+                                        <h:selectOneMenu id="countryId" value="#{purchaseOrderController.shippingAddress.country}">
+                                            <f:selectItem itemLabel="United States" itemValue="United States"/>
+                                            <f:selectItem itemLabel="Canada" itemValue="Canada"/>
+                                            <f:selectItem itemLabel="Greenland" itemValue="Greenland"/>
+                                            <f:selectItem itemLabel="Mexico" itemValue="Mexico"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                    <h:message for="countryId"/>
+                                </div>
+
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <h:commandButton class="btn btn-small" value="    Next    " action="#{purchaseOrderController.saveAddress()}"/>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

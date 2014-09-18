@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+  
+    <h:head>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="/views/template/template.xhtml">
+            <ui:define name="successFailure">
+                <h:panelGrid rendered="#{enrollmentController.message!=null}">
+                    <div class="alert fade in">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>#{enrollmentController.message}</strong>
+                    </div>
+                </h:panelGrid>
+            </ui:define>
+            <ui:define name="content">
+                <div class="row">
+                    <div class="span12">
+                        <ul class="breadcrumb">
+                            <li><a href="${facesContext.externalContext.requestContextPath}">Home</a> <span class="divider">/</span></li>
+                            <li><a href="${facesContext.externalContext.requestContextPath}${courseController.displayCourses()}">Courses</a> <span class="divider">/</span></li>
+                            <li class="active">Section</li>
+                        </ul>
+                        <h3> Course : #{sectionController.course.courseName} <small class="pull-right"> #{sectionController.listOfSectionForCourse.size()} Section are available </small></h3>	
+
+                        <hr class="soft"/>
+                        <br class="clr"/>
+                        <div class="span5">
+                            <h3>$#{sectionController.course.courseFee}</h3>
+                            <p>
+                                #{sectionController.course.description}
+                            </p>
+
+                        </div>
+                        <c:choose>
+                            <c:when test="#{sectionController.course.prerequisites.id != null}">
+                                <div class="span5 pull-right">
+                                    <p>This course has following prerequisite course.</p>
+                                    <h3>#{sectionController.course.prerequisites.courseName}</h3>
+                                    <p>
+                                        $#{sectionController.course.prerequisites.courseFee}
+                                    </p>
+                                    <h:form>
+                                        <h:commandLink class="btn btn-small pull-left" action="#{sectionController.displaySection(sectionController.course.prerequisites.id)}" value="View Details" />
+                                    </h:form>
+                                </div>
+                            </c:when>
+                        </c:choose>
+
+                        <br class="clr" />
+                        <hr class="soft"/>
+                        <h5>This course is offered in the following section. Enroll in any section you like.</h5>
+
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="listView">
+                                <ui:repeat value="#{sectionController.listOfSectionForCourse}" var="section">
+                                    <hr class="soft"/>
+                                    <div class="row">	  
+                                        <div id="productView" class="span2">
+                                            <img src="http://eps.roudneff.com/eps/photo/athletisme-course-3-figurine-3D.jpg" alt=""/>
+                                        </div>
+                                        <div class="span4">
+                                            <h5>${section.sectionName} </h5>			
+                                            <hr class="soft"/>
+                                            <p>
+                                                Start Date: #{section.semester.startDate} <br/>
+                                                End Date: #{section.semester.endDate}
+                                            </p>
+                                            <br class="clr"/>
+                                        </div>
+                                        <div class="span3 alignR">
+                                            <h:form class="form-horizontal qtyFrm">
+                                                <h:commandLink class="btn btn-large" action="#{enrollmentController.enrollCustomer(section.id)}" value="Enroll Now" />
+                                            </h:form>
+                                            
+                                        </div>
+                                    </div>
+                                </ui:repeat>
+                            </div>
+                            <br class="clr" />
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

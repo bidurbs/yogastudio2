@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <f:event listener="#{userController.isFacultyUser}" type="preRenderView" />
+    
+    <h:head>
+
+    </h:head>
+    <body>
+        <ui:composition template="../template/templateFaculty.xhtml">
+            <ui:define name="content">
+                <h3>Email to Advisee</h3>	
+                <hr class="soft"/>
+                <div class="well">
+                     <h:form id="emailSent">
+                        <h:outputText id="esentList"/>
+                        <h:message for="esentList" id="emSent"  style="color:red"/>
+                    </h:form>
+                    <h:form class="form-horizontal">
+                        <div class="control-group">
+                            <label class="control-label" for="firstName">First Name <sup>*</sup></label>
+                            <div class="controls">
+                                <h:outputText id="firstName" value="#{facultyController.selectedCustomer.firstName}">
+                                   
+                                </h:outputText>
+                            </div>
+                            <h:message for="firstName" class="error"/>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="lastName">Last Name <sup>*</sup></label>
+                            <div class="controls">
+                                <h:outputText id="lastName" value="#{facultyController.selectedCustomer.lastName}">
+                                   
+                                </h:outputText>
+                            </div>
+                            <h:message for="lastName" class="error"/>
+                        </div>
+
+                        
+
+                         <div class="control-group">
+                            <label class="control-label" for="reason">Message: <sup>*</sup></label>
+                            <div class="controls">
+                                <h:inputTextarea cols="30" value="#{facultyController.emailToAdvisee}"/>
+                            </div>
+                        </div>
+                        <h:commandButton value="Send" action="#{facultyController.sendEMailToMyAdvisee()}"/>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

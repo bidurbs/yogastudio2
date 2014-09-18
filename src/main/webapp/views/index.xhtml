@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="template/templateHome.xhtml">
+
+            <ui:define name="content">
+                <h3>New Products </h3>
+                <ul class="thumbnails">
+                    <ui:repeat value="#{indexController.listOfProducts}" var="product">
+                        <li class="span3">
+                            <div class="thumbnail">
+                                <a href="#"><img src="#{product.imageURL}" style="width: 200px; height: 200px;" alt="${product.name}"/></a>
+                                <div class="caption">
+                                    <h5>${product.name}</h5>
+                                    <h4><span class="pull-right">$#{product.price}</span></h4><h:form><h:commandLink action="#{productSearchController.viewProductDetail(product)}" class="btn btn-large" value="VIEW" /> </h:form>
+                                </div>
+                            </div>
+                        </li>
+                        <li style="border:0"></li>
+                    </ui:repeat>
+                </ul>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

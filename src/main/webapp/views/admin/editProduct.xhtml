@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:event listener="#{userController.isAdminUser}" type="preRenderView" />
+
+    <h:head>
+
+    </h:head>
+    <body>
+        <ui:composition template="../template/templateAdmin.xhtml">
+            <ui:define name="successFailure">
+
+            </ui:define>
+            <ui:define name="content">
+                <h3>Edit Product</h3>	
+                <hr class="soft"/>
+                <div class="well">
+                    <h:form class="form-horizontal">
+
+                        <div class="control-group">
+                            <label class="control-label" for="name">Product Name <sup>*</sup></label>
+                            <div class="controls">
+                                <h:inputText id="name" value="#{productController.product.name}" validatorMessage="Required">
+                                    <f:validateRequired/>
+                                </h:inputText>
+                                <h:message for="name" class="error"/>
+                            </div>
+                            
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="description">Description <sup>*</sup></label>
+                            <div class="controls">
+                                <h:inputTextarea id="description" value="#{productController.product.description}" validatorMessage="Required">
+                                    <f:validateRequired/>
+                                </h:inputTextarea>
+                                <h:message for="description" class="error"/>
+                            </div>
+                            
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="imageURL">Image URL</label>
+                            <div class="controls">
+                                <h:inputText id="imageURL" value="#{productController.product.imageURL}" />
+                            </div>
+                            <h:message for="imageURL"/>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="price">Price <sup>*</sup></label>
+                            <div class="controls">
+                                <h:inputText id="price" value="#{productController.product.price}" validatorMessage="Required">
+                                    <f:validateRequired/>
+                                </h:inputText>
+                                <h:message for="price" class="error"/>
+                            </div>
+                            
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="quantity">Quantity <sup>*</sup></label>
+                            <div class="controls">
+                                <h:inputText id="quantity" value="#{productController.product.quantity}" validatorMessage="Required">
+                                    <f:validateRequired/>
+                                </h:inputText>
+                                <h:message for="quantity" class="error"/>
+                            </div>
+                            
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                                <h:commandButton class="btn btn-large" value="Update" action="#{productController.updateProduct()}"/>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

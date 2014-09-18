@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/views/template/template.xhtml">
+            <ui:define name="successFailure">
+
+                <h:panelGrid rendered="#{purchaseOrderController.successMsg != null}">
+                    <div class="alert fade in">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>#{purchaseOrderController.successMsg}</strong>
+                    </div>
+                </h:panelGrid>
+                <h:panelGrid rendered="#{purchaseOrderController.errorMsg != null}">
+                    <div class="alert alert-block alert-error fade in">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>#{purchaseOrderController.errorMsg}</strong>
+                    </div>
+                </h:panelGrid>
+
+            </ui:define>
+            <ui:define name="content">
+                <div class="row">
+                    <div class="span12">
+                        <h3>Shopping Cart</h3>	
+                        <hr class="soft"/>
+                        <div class="well">
+                            <h:form class="form-horizontal">
+                                <h:dataTable headerClass="cart_menu" styleClass="table table-condensed" value="#{purchaseOrderController.shoppingCart.shoppingCartItems}" var="item">
+
+                                    <h:column>
+                                        <f:facet name="header">Item</f:facet>
+                                        <h:graphicImage style="width: 140px; height: 120px;" value="#{item.product.imageURL}" alt="Product_Image"/>
+
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">Price</f:facet>
+                                            #{item.product.price}                                
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">Quantity</f:facet>
+                                        <h:inputText value="#{item.quantity}" style="width: 60px;" label="Quantity" validatorMessage="Quantity must be a number and greater than 0" converterMessage="Only positive integer values are allowed for quantity">
+                                            <f:validateLongRange minimum="1" maximum="100"/>
+                                            <f:convertNumber integerOnly="true"></f:convertNumber>
+                                        </h:inputText>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">Total</f:facet>
+                                            #{item.price}
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">Action</f:facet>
+                                        <h:commandLink value="Remove" action="#{purchaseOrderController.removeProduct(item)}" style="color:green"></h:commandLink>
+                                        /
+                                        <h:commandLink value="Update" action="#{purchaseOrderController.updateProduct(item)}" style="color:green"></h:commandLink>
+                                    </h:column>
+
+                                    <f:facet name="footer">
+                                        <h:panelGroup style="display:block; text-align:right; padding-right: 380px;">
+                                            <h:outputText value="Total" style="padding-right: 120px"/>
+                                            <h:outputText value="#{purchaseOrderController.shoppingCart.totalPrice}" />
+                                        </h:panelGroup>
+                                    </f:facet>
+
+                                </h:dataTable>
+                                <h:commandButton class="btn btn-default check_out" value="Proceed to Checkout" action="#{purchaseOrderController.checkout()}"/>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

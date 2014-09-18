@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <f:event listener="#{userController.isFacultyUser}" type="preRenderView" />
+
+    <h:head>
+
+    </h:head>
+    <body>
+        <ui:composition template="../template/templateFaculty.xhtml">
+            <ui:define name="content">
+                <h3>My Advisee</h3>	
+                <hr class="soft"/>
+                <div class="well">
+                    <h:form id="advList">
+                        <h:outputText id="adviList"/>
+                        <h:message for="adviList" id="NoAdviList"  style="color:red"/>
+                    </h:form>
+                    <h:dataTable value="#{facultyController.myadvisee}" var="adv" 
+                                 class="table table-bordered">
+
+                        <h:column>
+                            <f:facet name="header">First Name</f:facet>
+                                #{adv.firstName}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Last Name</f:facet>
+                                #{adv.lastName}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Email </f:facet>
+                                #{adv.email}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Action</f:facet>
+                            <h:form>
+                                <h:commandLink action="#{facultyController.emailToAdvisee(adv)}"  
+                                               value="Send email" />
+                            </h:form>
+                        </h:column>
+                    </h:dataTable>
+
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

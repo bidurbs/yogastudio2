@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <f:event listener="#{userController.isCustomerUser}" type="preRenderView" />
+
+    <h:head>
+
+    </h:head>
+    <body>
+        <ui:composition template="../template/templateCustomer.xhtml">
+            <ui:define name="successFailure">
+                <h:panelGrid rendered="#{waiverController.successMsg != null}">
+                    <div class="alert fade in">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>#{waiverController.successMsg}</strong>
+                    </div>
+                </h:panelGrid>
+                <h:panelGrid rendered="#{waiverController.errorMsg != null}">
+                    <div class="alert alert-block alert-error fade in">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>#{waiverController.errorMsg}</strong>
+                    </div>
+                </h:panelGrid>
+            </ui:define>
+            <ui:define name="content">
+                <div class="well"> 
+                  <h4>Yoga Studio apply for waiver</h4>
+                <h:form>
+                    <h:panelGrid columns="2">
+                        <div class="control-group">
+                            <label class="control-label" for="endDate">Date <sup>*</sup></label>
+                            <div class="controls">
+                                <p:calendar value="#{waiverController.waiver.requestDate}" id="popupCale"/>
+                            </div>
+
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="secID">Section ID: <sup>*</sup></label>
+                            <div class="controls">
+                                <h:selectOneMenu value="#{waiverController.selectedSectionName}" >
+                                    <f:selectItems value="#{waiverController.section}" var="waive" 
+                                                   itemValue="#{waive.sectionName}" 
+                                                   itemLabel="#{waive.course.courseName}"/>
+                                </h:selectOneMenu>
+                            </div>
+
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="reason">Reason: <sup>*</sup></label>
+                            <div class="controls">
+                                <h:inputTextarea cols="30" value="#{waiverController.waiver.reason}"/>
+                            </div>
+                        </div>
+                        <h:commandButton value="Waive" action="#{waiverController.waiveSection()}"/>
+                    </h:panelGrid>
+                  </h:form>
+                 </ui:define>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

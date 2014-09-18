@@ -1,0 +1,13 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <header id="header">
+        <div class="row">
+            <div class="span12">
+                <div class="pull-right"> <br/>
+                    <a href="${facesContext.externalContext.requestContextPath}/views/customer/shoppingCart.xhtml"> <span class="btn btn-mini btn-warning"> <i class="icon-shopping-cart icon-white"></i> [ #{purchaseOrderController.noOfItemsInTheCart} ] </span> </a>
+                    <a href="${facesContext.externalContext.requestContextPath}/views/customer/shoppingCart.xhtml"><span class="btn btn-mini active">$#{purchaseOrderController.shoppingCart.totalPrice}</span></a>
+                </div>
+            </div>
+        </div>
+        <div class="clr"></div>
+    </header>
+</html>

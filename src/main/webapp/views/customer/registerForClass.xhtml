@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:event listener="#{userController.isCustomerUser}" type="preRenderView" />
+    <h:head>
+    </h:head>
+    <body>
+        <ui:composition template="../template/templateCustomer.xhtml">  
+            <ui:define name="successFailure">
+                <h:panelGrid rendered="#{enrollmentController.message}">
+                    <div class="alert fade in">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>#{enrollmentController.message}</strong>
+                    </div>
+                </h:panelGrid>
+                <h:panelGrid rendered="#{enrollmentController.message != null}">
+                    <div class="alert alert-block alert-error fade in">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>#{enrollmentController.message}</strong>
+                    </div>
+                </h:panelGrid>
+            </ui:define>
+            <ui:define name="content">
+                <div class="well">
+
+                    <h4>Yoga Studio Class Registration</h4>
+                    <h:form>
+                        <h:panelGrid columns="3">
+                            Enrolment Date:
+                            <h:inputText id="requestDate" value="#{enrollmentController.enrollment.enrolledDate}">
+                                <f:convertDateTime type="date"/>
+                            </h:inputText>
+                            <h:message for="requestDate"/>
+                            Course:
+                            <h:inputText id="section" value="#{enrollmentController.enrollment.section.course.courseName}"/>
+                            <h:message for="section"/>   
+                            Description:
+                            <h:inputText id="description" value="#{enrollmentController.enrollment.section.course.description}"/>
+                            <h:message for="description"/>   
+                            &nbsp;
+                            <h:commandButton value="Enrol Now" action="#{enrollmentController.enrollCustomer()}"/>
+                            &nbsp;
+                        </h:panelGrid>                       
+
+                        <h:dataTable  id="displayData" value="#{enrollmentController.enrollments}" var="display" border="2">
+                            <f:facet name="header"> &nbsp;&nbsp;&nbsp;&nbsp; Temporary Assignment
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                             
+                            </f:facet>
+                            <h:column>
+                                <f:facet name="header">No</f:facet>
+                                    #{i=i+1}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Reg.Date</f:facet>
+                                    #{display.enrolledDate}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Customer</f:facet>
+                                    #{display.user.firstName}  #{display.user.lastName}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Status</f:facet>
+                                    #{display.customerStatus}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">delete</f:facet>
+                                <h:commandButton value="Delete" action="#{enrollmentController.deleteWaitingList()}">
+                                    <f:setPropertyActionListener target="#{enrollmentController.enrollment}" value="#{display}" />
+                                </h:commandButton>        
+                            </h:column>
+
+
+                        </h:dataTable>
+                    </h:form>  
+
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
+

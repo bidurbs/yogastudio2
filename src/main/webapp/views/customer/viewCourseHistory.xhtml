@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+
+    </h:head>
+    <body>
+        <ui:composition template="../template/templateCustomer.xhtml">         
+            <ui:define name="content">
+         
+                     <div class="well">
+                         <h:dataTable value="#{enrollmentController.enrollments}" var="enrol" class="table table-bordered">
+                        <h:column>
+                            <f:facet name="header">Course Name</f:facet>
+                                #{enrol.section.course.courseName}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Course Code</f:facet>
+                                #{enrol.section.course.courseCode}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Status</f:facet>
+                                #{enrol.customerStatus}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Course Fee</f:facet>
+                                #{enrol.section.course.courseFee}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Enrolled Date</f:facet>
+                                #{enrol.enrolledDate}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Grade</f:facet>
+                               
+                        </h:column>
+                    </h:dataTable>
+
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
+
+
+

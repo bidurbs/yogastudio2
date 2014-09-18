@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:event listener="#{userController.isCustomerUser}" type="preRenderView" />
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="../template/templateCustomer.xhtml">
+            <ui:define name="content">
+                <div class="row">
+                    <div class="span12">
+                        <h3>Purchase Order Detail</h3>	
+                        <hr class="soft"/>
+                        <div class="well">
+                            <h:form class="form-horizontal">
+
+                                <h:panelGrid columns="6" width="70%">
+
+                                    Order Number: 
+                                    <h:outputText value="#{purchaseOrderViewController.purchaseOrder.id}"/>
+
+                                    Customer Name: 
+                                    <h:outputText value="#{purchaseOrderViewController.purchaseOrder.customer.firstName} #{purchaseOrderViewController.purchaseOrder.customer.lastName}"/>
+
+                                    Order Date: 
+                                    <h:outputText value="#{purchaseOrderViewController.purchaseOrder.buyDateStr}"/>
+
+                                </h:panelGrid>
+
+                                <br/><br/>
+
+                                <h:dataTable headerClass="cart_menu" styleClass="table table-condensed" value="#{purchaseOrderViewController.purchaseOrder.shoppingCart.shoppingCartItems}" var="item">
+
+                                    <h:column>
+                                        <f:facet name="header">Item</f:facet>
+                                        <h:graphicImage style="width: 140px; height: 120px;" value="#{item.product.imageURL}" alt="Product_Image"/>
+
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">Price</f:facet>
+                                            #{item.product.price}                                
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">Quantity</f:facet>
+                                            #{item.quantity}
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">Total</f:facet>
+                                            #{item.price}
+                                    </h:column>
+
+                                    <f:facet name="footer">
+                                        <h:panelGroup style="display:block; text-align:right; padding-right: 120px;">
+                                            <h:outputText value="Total" style="padding-right: 200px"/>
+                                            <h:outputText value="#{purchaseOrderViewController.purchaseOrder.shoppingCart.totalPrice}" />
+                                        </h:panelGroup>
+                                    </f:facet>
+
+                                </h:dataTable>
+
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

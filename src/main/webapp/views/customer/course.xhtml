@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="/views/template/template.xhtml">
+            <ui:define name="content">
+                <div class="row">
+                    <div class="span12">
+                        <ul class="breadcrumb">
+                            <li><a href="${facesContext.externalContext.requestContextPath}">Home</a> <span class="divider">/</span></li>
+                            <li class="active">Courses</li>
+                        </ul>
+                        <h3> Courses <small class="pull-right"> #{courseController.noOfCourses} Courses are available </small></h3>	
+
+                        <br class="clr"/>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="listView">
+                                <ui:repeat value="#{courseController.listOfCourses}" var="course">
+                                    <hr class="soft"/>
+                                    <div class="row">	  
+                                        <div id="productView" class="span2">
+                                            <img src="http://eps.roudneff.com/eps/photo/athletisme-course-3-figurine-3D.jpg" alt=""/>
+                                        </div>
+                                        <div class="span4">
+                                            <h5>${course.courseName} </h5>				
+                                            <hr class="soft"/>
+                                            <p>
+                                                ${course.description}
+                                            </p>
+                                            <br class="clr"/>
+                                        </div>
+                                        <div class="span3 alignR">
+                                            <h:form class="form-horizontal qtyFrm">
+                                                <h3> $${course.courseFee}</h3>
+                                                <h:commandLink class="btn btn-large" action="#{sectionController.displaySection(course.id)}" value="VIEW" />
+                                                <!--<a href="" class="btn btn-large">VIEW</a>-->
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </ui:repeat>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

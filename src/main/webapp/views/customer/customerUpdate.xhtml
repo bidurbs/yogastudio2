@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:event listener="#{userController.isCustomerUser}" type="preRenderView" />
+
+    <h:head>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="../template/templateCustomer.xhtml">
+            <ui:define name="successFailure">
+                <h:panelGrid rendered="#{customerController.successMsg != null}">
+                    <div class="alert fade in">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>#{customerController.successMsg}</strong>
+                    </div>
+                </h:panelGrid>
+                <h:panelGrid rendered="#{customerController.errorMsg != null}">
+                    <div class="alert alert-block alert-error fade in">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>#{customerController.errorMsg}</strong>
+                    </div>
+                </h:panelGrid>
+            </ui:define>
+            <ui:define name="content">
+                <div class="row">
+                    <div class="span12">
+                        <h3>Update Customer Information</h3>	
+                        <hr class="soft"/>
+                        <div class="well">
+                            <h:form class="form-horizontal">
+                                <div class="control-group">
+                                    <h:inputHidden value="#{customerController.customer.userId}"/>
+                                    <label class="control-label" for="firstName">First Name <sup>*</sup></label>
+                                    <div class="controls">
+                                        <h:inputText id="firstName" value="#{customerController.customer.firstName}" maxlength="50" requiredMessage="First name is required">
+                                            <f:validateRequired/>
+                                        </h:inputText>
+                                    </div>
+                                    <h:message for="firstName" class="error"/>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="lastName">Last Name <sup>*</sup></label>
+                                    <div class="controls">
+                                        <h:inputText id="lastName" value="#{customerController.customer.lastName}" maxlength="50" requiredMessage="First name is required">
+                                            <f:validateRequired/>
+                                        </h:inputText>
+                                    </div>
+                                    <h:message for="lastName" class="error"/>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="email">Email </label>
+                                    <div class="controls">
+                                        <h:inputText id="email" value="#{customerController.customer.email}" maxlength="50" readonly="true"/>
+                                    </div>
+                                    <h:message for="email"/>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="phone">Phone </label>
+                                    <div class="controls">
+                                        <h:inputText id="phone" value="#{customerController.customer.phone}" maxlength="14"/>
+                                    </div>
+                                    <h:message for="phone"/>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="street">Street </label>
+                                    <div class="controls">
+                                        <h:inputText id="street" value="#{customerController.customer.address.street}" maxlength="50"/>
+                                    </div>
+                                    <h:message for="street"/>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="city">City </label>
+                                    <div class="controls">
+                                        <h:inputText id="city" value="#{customerController.customer.address.city}" maxlength="50"/>
+                                    </div>
+                                    <h:message for="city"/>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="state">State </label>
+                                    <div class="controls">
+                                        <h:inputText id="state" value="#{customerController.customer.address.state}" maxlength="50"/>
+                                    </div>
+                                    <h:message for="state"/>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="state">Zip </label>
+                                    <div class="controls">
+                                        <h:inputText id="zip" value="#{customerController.customer.address.zip}" maxlength="5"/>
+                                    </div>
+                                    <h:message for="zip" class="error"/>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="country">Country </label>
+                                    <div class="controls">
+                                        <h:selectOneMenu id="country" value="#{customerController.customer.address.country}">
+                                            <f:selectItem itemLabel="United States" itemValue="United States"/>
+                                            <f:selectItem itemLabel="Canada" itemValue="Canada"/>
+                                            <f:selectItem itemLabel="Greenland" itemValue="Greenland"/>
+                                            <f:selectItem itemLabel="Mexico" itemValue="Mexico"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                    <h:message for="country"/>
+                                </div>
+
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <h:commandButton class="btn btn-small" value="Update" action="#{customerController.updateCustomer()}"/>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
